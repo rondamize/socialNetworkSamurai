@@ -1,0 +1,29 @@
+.friendInfo {
+    display:grid;
+    grid-template-rows: 40px 13px;
+    grid-gap: 7px;
+    /*background: aquamarine;*/
+    /*border: 1px solid;*/
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.friendInfoImg {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.friendName {
+    margin: 0 auto;
+}
+
+.friendName p {
+    margin: 0;
+    color: white;
+}
