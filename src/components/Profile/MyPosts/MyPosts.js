@@ -5,18 +5,15 @@ import React from "react";
 const MyPosts = (props) => {
   let postsElements = props.posts.map(p => <Post message={p.text} likes={p.likesCount}/>);
   let addPost = () => {
-    // debugger;
     let text = newPostElement.current.value;
-    props.addPost(text);
-    props.updatePostText('');
+    props.dispatch({type: 'ADD_POST', postMessage: text});
+    props.dispatch({type: 'UPDATE_POST_TEXT', newText: ''});
   };
   let newPostElement = React.createRef();
 
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    props.updatePostText(text);
-    // props.newPostText = newPostElement.current.value;
-    // debugger;
+    props.dispatch({type: 'UPDATE_POST_TEXT', newText: text});
   };
 
   return (
