@@ -5,21 +5,24 @@ import './reset.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 //import state, {addPost, updatePostText, subscribe} from './redux/State';
-import store from './redux/State';
+import store from './redux/reduxStore';
 
 // debugger;
-let rerenderEntireTree = (store) => {
+let rerenderEntireTree = (state) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store={store} dispatch = {store.dispatch.bind(store)}/>
+            <App state={state} dispatch = {store.dispatch.bind(store)} store = {store} />
         </React.StrictMode>,
         document.getElementById('root')
     );
 };
 
-rerenderEntireTree(store);
+rerenderEntireTree(store.getState());
 
-store.subscribe(rerenderEntireTree);
+store.subscribe(() => {
+    let state = store.getState();
+    rerenderEntireTree(state);
+});
 
 
 
