@@ -3,8 +3,8 @@ import FriendInfo from "./Friends/FriendInfo/FriendInfo";
 import React from "react";
 
 const Sidebar = (props) => {
-
-    let friendsElements = props.sideBar.friends.map(f => <FriendInfo name={f.name} img={f.img} />);
+    //debugger;
+    let friendsElements = props.state.friends.map(f => <FriendInfo name={f.name} img={f.img} />);
     console.log(friendsElements);
 
     return (

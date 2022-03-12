@@ -5,6 +5,7 @@ import Sidebar from "../Sidebar/Sidebar";
 const activeLink = ({isActive}) => isActive ? classes.active : classes.item;
 
 const Navbar = (props) => {
+    //debugger;
   return (
     <nav className={classes.nav}>
       <div className={classes.item}>
@@ -24,7 +25,7 @@ const Navbar = (props) => {
       </div>
 
         <div>
-           <Sidebar sideBar={props.state.sideBar}/>
+           <Sidebar state={props.state.sideBar}/>
         </div>
     </nav>
   );

@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 //import state, {addPost, updatePostText, subscribe} from './redux/State';
 import store from './redux/State';
 
+// debugger;
 let rerenderEntireTree = (store) => {
     ReactDOM.render(
         <React.StrictMode>
