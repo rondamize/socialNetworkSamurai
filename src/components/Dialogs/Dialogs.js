@@ -5,20 +5,18 @@ import React from "react";
 import {addMessageActionCreator, updateMessageTextActionCreator} from "../../redux/dialogsReducer";
 
 const Dialogs = (props) => {
-    let dialogsElements = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id} />);
-    let messagesElements = props.state.messages.map(m => <Message text={m.text} />);
+    let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} />);
+    let messagesElements = props.dialogsPage.messages.map(m => <Message text={m.text} />);
     let newMessage = React.createRef();
 
     let addMessage = () => {
         let message = newMessage.current.value;
-        props.dispatch(addMessageActionCreator(message));
-        props.dispatch(updateMessageTextActionCreator(''));
+        props.addMessage(message);
     };
-
 
     let updateMessageText = () => {
         let message = newMessage.current.value;
-        props.dispatch(updateMessageTextActionCreator(message));
+        props.updateMessageText(message);
     };
 
     return (
@@ -30,7 +28,7 @@ const Dialogs = (props) => {
                 {messagesElements}
             </div>
             <div>
-                <textarea ref={newMessage} onChange={updateMessageText} value={props.state.newMessageText}></textarea>
+                <textarea ref={newMessage} onChange={updateMessageText} value={props.dialogsPage.newMessageText}></textarea>
                 <button onClick={addMessage}>Submit</button>
             </div>
 
