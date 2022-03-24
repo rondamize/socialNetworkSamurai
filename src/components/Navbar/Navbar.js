@@ -1,6 +1,7 @@
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
+import SidebarContainer from "../Sidebar/SidebarContainer";
 
 const activeLink = ({isActive}) => isActive ? classes.active : classes.item;
 
@@ -25,7 +26,8 @@ const Navbar = (props) => {
       </div>
 
         <div>
-           <Sidebar state={props.state.sideBar}/>
+           {/*<Sidebar state={props.state.sideBar}/>*/}
+            <SidebarContainer store={props.store}/>
         </div>
     </nav>
   );
