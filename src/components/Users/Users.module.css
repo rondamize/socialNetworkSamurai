@@ -1,0 +1,36 @@
+.userInfo {
+    height: 120px;
+    margin: 10px;
+    display: flex;
+}
+
+.infoContent {
+    margin: 20px;
+    display: flex;
+    border: 2px solid indianred;
+    border-radius: 20px;
+}
+
+.photo img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.photoFollow{
+    display: inline-block;
+}
+
+.nameStatus {
+    display: inline-block;
+    margin: auto 20px;
+}
+
+.name{
+    font-weight: 600;
+}
+
+.location {
+    display: inline-block;
+    margin: auto 20px;
+}
