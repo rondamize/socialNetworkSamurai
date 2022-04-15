@@ -5,18 +5,36 @@ import React from "react";
 
 class Users extends React.Component {
 
-    constructor(props) {
-        super(props);
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    props.setUsers(response.data.items)
-                })
-        }
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersPerPage}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChange = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPerPage}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render() {
+        let pagesNumber = Math.ceil(this.props.totalUsersCount / this.props.usersPerPage);
+        let pages = [];
+        for (let i=1; i <= pagesNumber; i++) {
+           pages.push(i);
+        }
+
         return <div>
+                <div>
+                    {pages.map(p => {
+                        return <button className={this.props.currentPage === p && classes.currentPage}
+                        onClick={(e) => this.onPageChange(p)}>{p}</button>
+                    })}
+                </div>
                 {
                     this.props.users.map(u => {
                         return (

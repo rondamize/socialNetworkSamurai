@@ -34,3 +34,7 @@
     display: inline-block;
     margin: auto 20px;
 }
+
+.currentPage {
+    font-weight: bold;
+}
