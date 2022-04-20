@@ -17,3 +17,7 @@
     font-size: 16px;
     font-style: italic;
 }
+
+.photoBackground img{
+    width: 1175px;
+}

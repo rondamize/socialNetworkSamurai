@@ -8,7 +8,7 @@ const ProfileInfo = (props) => {
 
     return (
         <div>
-            <div>
+            <div className={classes.photoBackground}>
                 <img
                     src={"https://img.gadgethacks.com/img/10/71/63632332115374/0/take-long-exposure-photos-your-iphone.1280x600.jpg"}/>
             </div>

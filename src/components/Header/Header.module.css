@@ -6,3 +6,11 @@
 .header img {
   width: 100px;
 }
+
+.logButton {
+  float: right;
+}
+
+/*.logButton div, a{*/
+/*  margin-top: 50%;*/
+/*}*/
