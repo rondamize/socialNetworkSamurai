@@ -2,6 +2,7 @@ import classes from './Users.module.css'
 import userImage from '../../assets/images/user.png'
 import React from "react";
 import {NavLink} from "react-router-dom";
+import * as axios from "axios";
 const Users = (props) => {
     let pagesNumber = Math.ceil(props.totalUsersCount / props.usersPerPage);
     let pages = [];
@@ -26,8 +27,39 @@ const Users = (props) => {
                                             </div>
                                             <div>
                                                 {u.followed ?
-                                                    <button onClick={() => props.toggleFollow(u.id)}>Unfollow</button> :
-                                                    <button onClick={() => props.toggleFollow(u.id)}>Follow</button>}
+                                                    <button onClick={() => {
+                                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                                            {
+                                                                withCredentials:true,
+                                                                headers: {
+                                                                    "api-key": "45b73825-6be3-4981-821c-33679ddd684d"
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                if (response.data.resultCode == 0) {
+                                                                    props.toggleFollow(u.id)
+                                                                }
+                                                            })
+                                                    }}>
+                                                        Unfollow
+                                                    </button> :
+                                                    <button onClick={() => {
+                                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
+                                                            {
+                                                                withCredentials:true,
+                                                                headers: {
+                                                                    "api-key": "45b73825-6be3-4981-821c-33679ddd684d"
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                if (response.data.resultCode == 0) {
+                                                                    props.toggleFollow(u.id)
+                                                                }
+                                                            })
+
+                                                    }}>
+                                                        Follow
+                                                    </button>}
                                             </div>
                                         </span>
                         <div className={classes.infoContent}>
