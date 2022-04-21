@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import {
+    manageFollowButton,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
@@ -42,7 +43,8 @@ class UsersContainer extends React.Component {
                       totalUsersCount={this.props.totalUsersCount}
                       usersPerPage={this.props.usersPerPage}
                       users={this.props.users}
-
+                      followingInProgress={this.props.followingInProgress}
+                      manageFollowButton={this.props.manageFollowButton}
             />
         </>
     }
@@ -55,7 +57,8 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         usersPerPage: state.usersPage.usersPerPage,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -64,5 +67,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setTotalUsersCount,
     toggleIsFetching,
-    setCurrentPage
+    setCurrentPage,
+    manageFollowButton
 })(UsersContainer);

@@ -3,13 +3,15 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const MANAGE_FOLLOW_BUTTON = 'MANAGE_FOLLOW_BUTTON';
 
 let initialState = {
     users: [],
     totalUsersCount: 0,
     usersPerPage: 5,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [23551, 23550]
 };
 
 //в качестве state передаем dialogsPage
@@ -52,6 +54,16 @@ const usersReducer = (state = initialState, action) => {
             }
 
         }
+        case MANAGE_FOLLOW_BUTTON: {
+            return {
+                ...state,
+                followingInProgress: action.isInProgress
+                    ? [...state.followingInProgress, action.id]
+                    : state.followingInProgress.filter(id => id != action.id)
+
+            }
+
+        }
         default:
             return state;
     };
@@ -68,3 +80,5 @@ export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, current
 export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount: totalCount})
 
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching})
+
+export const manageFollowButton = (id, isInProgress) => ({type: MANAGE_FOLLOW_BUTTON, isInProgress: isInProgress, id:id})

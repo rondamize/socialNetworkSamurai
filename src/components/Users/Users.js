@@ -27,22 +27,28 @@ const Users = (props) => {
                                             </div>
                                             <div>
                                                 {u.followed ?
-                                                    <button onClick={() => {
+                                                    <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                                        onClick={() => {
+                                                        props.manageFollowButton(u.id, true);
                                                         UsersApi.unfollowUser(u.id)
                                                             .then(data => {
                                                                 if (data.resultCode == 0) {
-                                                                    props.toggleFollow(u.id)
+                                                                    props.toggleFollow(u.id);
                                                                 }
+                                                                props.manageFollowButton(u.id, false);
                                                             })
                                                     }}>
                                                         Unfollow
                                                     </button> :
-                                                    <button onClick={() => {
+                                                    <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                                        onClick={() => {
+                                                        props.manageFollowButton(u.id, true);
                                                         UsersApi.followUser(u.id)
                                                             .then(data => {
                                                                 if (data.resultCode == 0) {
-                                                                    props.toggleFollow(u.id)
+                                                                    props.toggleFollow(u.id);
                                                                 }
+                                                                props.manageFollowButton(u.id, false);
                                                             })
 
                                                     }}>
