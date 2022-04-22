@@ -1,20 +1,12 @@
 import React from "react";
 import Header from "./Header";
-import * as axios from "axios";
 import {connect} from "react-redux";
-import {setAuthorisedUserData} from "../../redux/authReducer";
-import {AuthorisationApi} from "../../api/api";
+import {authorisationThunkCreator, setAuthorisedUserData} from "../../redux/authReducer";
 
 
 class HeaderContainer extends React.Component {
     componentDidMount() {
-        AuthorisationApi.Auth()
-            .then(data => {
-                if (data.resultCode == 0) {
-                    let {id, login, email} = data.data;
-                    this.props.setAuthorisedUserData(id, login, email);
-                }
-            })
+        this.props.authorisationThunkCreator();
     }
 
     render() {
@@ -30,4 +22,4 @@ let mapStateToProps = (state) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, {setAuthorisedUserData})(HeaderContainer);
+export default connect(mapStateToProps, {setAuthorisedUserData, authorisationThunkCreator})(HeaderContainer);

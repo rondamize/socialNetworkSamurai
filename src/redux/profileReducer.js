@@ -1,3 +1,5 @@
+import {ProfileApi} from "../api/api";
+
 const ADD_POST = 'ADD_POST';
 const UPDATE_POST_TEXT = 'UPDATE_POST_TEXT';
 const SET_PROFILE_PAGE = 'SET_PROFILE_PAGE';
@@ -47,3 +49,12 @@ export const addPostActionCreator = (text) => ({type: ADD_POST, postMessage: tex
 export const updatePostTextActionCreator = (text) => ({type: UPDATE_POST_TEXT, newText: text});
 
 export const setProfilePage = (profile) => ({type: SET_PROFILE_PAGE, profile: profile});
+
+export const getProfileThunkCreator = (id) => {
+    return (dispatch) => {
+        ProfileApi.getProfile(id)
+            .then(data => {
+                dispatch(setProfilePage(data));
+            })
+    }
+}

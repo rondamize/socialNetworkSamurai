@@ -1,3 +1,5 @@
+import {UsersApi} from "../api/api";
+
 const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
@@ -82,3 +84,42 @@ export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT,
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching})
 
 export const manageFollowButton = (id, isInProgress) => ({type: MANAGE_FOLLOW_BUTTON, isInProgress: isInProgress, id:id})
+
+export const getUsersThunkCreator = (currentPage, usersPerPage) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(currentPage));
+        UsersApi.getUsers(currentPage, usersPerPage)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+            })
+    }
+}
+
+export const unfollowThunkCreator = (id) => {
+    return (dispatch) => {
+        dispatch(manageFollowButton(id, true));
+        UsersApi.unfollowUser(id)
+            .then(data => {
+                if (data.resultCode == 0) {
+                    dispatch(toggleFollow(id));
+                }
+                dispatch(manageFollowButton(id, false));
+            })
+    }
+}
+
+export const followThunkCreator = (id) => {
+    return (dispatch) => {
+        dispatch(manageFollowButton(id, true));
+        UsersApi.followUser(id)
+            .then(data => {
+                if (data.resultCode == 0) {
+                    dispatch(toggleFollow(id));
+                }
+                dispatch(manageFollowButton(id, false));
+            })
+    }
+}
