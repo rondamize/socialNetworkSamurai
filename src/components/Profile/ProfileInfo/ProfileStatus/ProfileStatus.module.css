@@ -1,0 +1,23 @@
+.mainAvatar {
+    width: 25%;
+    height: 25%;
+}
+
+.descriptionBlock {
+    padding: 2%;
+}
+
+.userName {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.aboutMe {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.photoBackground img{
+    width: 1175px;
+}

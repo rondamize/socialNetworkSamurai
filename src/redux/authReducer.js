@@ -14,6 +14,7 @@ let initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_AUTHORISED_USER_DATA: {
+            // debugger;
             return {
                 ...state,
                 isAuthorised: true,
@@ -31,9 +32,11 @@ export const setAuthorisedUserData = (id, login, email) => ({type: SET_AUTHORISE
 
 export const authorisationThunkCreator = () => {
     return (dispatch) => {
+        // debugger;
         AuthorisationApi.Auth()
             .then(data => {
                 if (data.resultCode == 0) {
+                    // debugger;
                     let {id, login, email} = data.data;
                     dispatch(setAuthorisedUserData(id, login, email));
                 }

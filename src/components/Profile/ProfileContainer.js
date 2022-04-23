@@ -2,9 +2,14 @@ import React from "react";
 import Profile from "./Profile";
 import {getProfileThunkCreator, setProfilePage} from "../../redux/profileReducer";
 import {connect} from "react-redux"
-import {useLocation, useNavigate, useParams,} from "react-router-dom";
+import {useLocation, useNavigate, useParams, Navigate} from "react-router-dom";
+import {authorisationThunkCreator} from "../../redux/authReducer";
+import {withRouter} from "../../hoc/withRouter";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
+
     componentDidMount() {
         let id = this.props.router.params.userId;
         if (!id) {
@@ -14,6 +19,10 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
+        this.props.authorisationThunkCreator();
+        // debugger;
+        if (!this.props.isAuthorised) return <Navigate to={'/login'}/>
+
         return (
             <Profile {...this.props}/>
         )
@@ -24,19 +33,8 @@ let mapStateToProps = (state) => ({
     profile: state.profilePage.profile
 })
 
-let withRouter = (Component) => {
-    return (props) => {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
-}
-
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
-export default connect(mapStateToProps, {setProfilePage, getProfileThunkCreator})(WithUrlDataContainerComponent);
+export default compose(
+    connect(mapStateToProps, {setProfilePage, getProfileThunkCreator, authorisationThunkCreator}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
