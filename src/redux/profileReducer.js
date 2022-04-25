@@ -14,7 +14,7 @@ let initialState = {
     ],
     newPostText: "Hello world!",
     profile: null,
-    status: "",
+    status: "init",
 };
 
 //в качестве state передаем profilePage

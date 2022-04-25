@@ -7,7 +7,6 @@ import {
     updateStatusThunkCreator
 } from "../../redux/profileReducer";
 import {connect} from "react-redux"
-import {Navigate} from "react-router-dom";
 import {authorisationThunkCreator} from "../../redux/authReducer";
 import {withRouter} from "../../hoc/withRouter";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -26,9 +25,6 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        this.props.authorisationThunkCreator();
-        if (!this.props.isAuthorised) return <Navigate to={'/login'}/>
-
         return (
             <Profile {...this.props}/>
         )
@@ -44,5 +40,5 @@ export default compose(
     connect(mapStateToProps, {setProfilePage, getProfileThunkCreator,
         authorisationThunkCreator, setStatusThunkCreator, updateStatusThunkCreator}),
     withRouter,
-    withAuthRedirect
+    // withAuthRedirect
 )(ProfileContainer)
