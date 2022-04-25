@@ -3,6 +3,7 @@ import {ProfileApi} from "../api/api";
 const ADD_POST = 'ADD_POST';
 const UPDATE_POST_TEXT = 'UPDATE_POST_TEXT';
 const SET_PROFILE_PAGE = 'SET_PROFILE_PAGE';
+const SET_STATUS = 'SET_STATUS';
 
 let initialState = {
     posts: [
@@ -12,7 +13,8 @@ let initialState = {
         {id:4, text:'Lalalal', likesCount: 15}
     ],
     newPostText: "Hello world!",
-    profile: null
+    profile: null,
+    status: "",
 };
 
 //в качестве state передаем profilePage
@@ -37,6 +39,13 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.profile
             };
         }
+        case SET_STATUS: {
+            // debugger;
+            return {
+                ...state,
+                status: action.status
+            };
+        }
         default:
             return state;
     };
@@ -50,11 +59,35 @@ export const updatePostTextActionCreator = (text) => ({type: UPDATE_POST_TEXT, n
 
 export const setProfilePage = (profile) => ({type: SET_PROFILE_PAGE, profile: profile});
 
+export const setStatus = (status) => ({type: SET_STATUS, status: status});
+
 export const getProfileThunkCreator = (id) => {
     return (dispatch) => {
         ProfileApi.getProfile(id)
             .then(data => {
                 dispatch(setProfilePage(data));
+            })
+    }
+}
+
+export const setStatusThunkCreator = (id) => {
+    return (dispatch) => {
+        ProfileApi.getStatus(id)
+            .then(data => {
+                dispatch(setStatus(data));
+            })
+    }
+}
+
+export const updateStatusThunkCreator = (status) => {
+    return (dispatch) => {
+        // debugger
+        ProfileApi.updateStatus(status)
+            .then(data => {
+                // debugger;
+                if (!data.resultCode){
+                    dispatch(setStatus(status));
+                }
             })
     }
 }

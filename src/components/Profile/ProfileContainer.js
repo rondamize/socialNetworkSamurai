@@ -1,8 +1,13 @@
 import React from "react";
 import Profile from "./Profile";
-import {getProfileThunkCreator, setProfilePage} from "../../redux/profileReducer";
+import {
+    getProfileThunkCreator,
+    setProfilePage,
+    setStatusThunkCreator,
+    updateStatusThunkCreator
+} from "../../redux/profileReducer";
 import {connect} from "react-redux"
-import {useLocation, useNavigate, useParams, Navigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {authorisationThunkCreator} from "../../redux/authReducer";
 import {withRouter} from "../../hoc/withRouter";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -12,15 +17,16 @@ class ProfileContainer extends React.Component {
 
     componentDidMount() {
         let id = this.props.router.params.userId;
+        // debugger;
         if (!id) {
-            id = 2;
+            id = 23293;
         }
         this.props.getProfileThunkCreator(id);
+        this.props.setStatusThunkCreator(id);
     }
 
     render() {
         this.props.authorisationThunkCreator();
-        // debugger;
         if (!this.props.isAuthorised) return <Navigate to={'/login'}/>
 
         return (
@@ -30,11 +36,13 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
 })
 
 export default compose(
-    connect(mapStateToProps, {setProfilePage, getProfileThunkCreator, authorisationThunkCreator}),
+    connect(mapStateToProps, {setProfilePage, getProfileThunkCreator,
+        authorisationThunkCreator, setStatusThunkCreator, updateStatusThunkCreator}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

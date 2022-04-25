@@ -6,7 +6,10 @@ import {UsersApi} from "../../api/api";
 const Users = (props) => {
     let pagesNumber = Math.ceil(props.totalUsersCount / props.usersPerPage);
     let pages = [];
-    for (let i=1; i <= 10; i++) {
+    // for (let i=1; i <= 10; i++) {
+    //     pages.push(i);
+    // }
+    for (let i=1; i <= pagesNumber; i++) {
         pages.push(i);
     }
     return (

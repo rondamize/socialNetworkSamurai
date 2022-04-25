@@ -13,7 +13,7 @@ const ProfileInfo = (props) => {
                 <img className={classes.mainAvatar}
                      src={!props.profile.photos.large ? "https://cdnb.artstation.com/p/assets/images/images/009/836/467/medium/maria-bo-schatzis-stream-profilpicture.jpg?1521139318" : props.profile.photos.large}/>
                 <div className={classes.userName}>{props.profile.fullName}</div>
-                <ProfileStatus status={'Fuck war'}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 {/*<div className={classes.aboutMe}>{props.profile.aboutMe}</div>*/}
             </div>
         </div>

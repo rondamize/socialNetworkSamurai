@@ -44,5 +44,17 @@ export const ProfileApi = {
             .then(response => {
                 return response.data;
             });
+    },
+    getStatus(id) {
+        return axiosInstance.get(`profile/status/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+    updateStatus(status) {
+        return axiosInstance.put(`profile/status`, {status: status})
+            .then(response => {
+                return response.data;
+            });
     }
 }

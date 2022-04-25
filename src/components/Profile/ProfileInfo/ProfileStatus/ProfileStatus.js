@@ -3,12 +3,25 @@ import classes from './ProfileStatus.module.css';
 
 class ProfileStatus extends React.Component {
     state = {
-       inEditMode: false
+        inEditMode: false,
+        status: this.props.status
     }
 
-    toggleEditMode() {
+    activateEditMode = () => {
         this.setState({
-            inEditMode: !this.state.inEditMode
+            inEditMode: true
+        })
+    }
+
+    deactivateEditMode = () => {
+        this.setState({
+            inEditMode: false
+        })
+        this.props.updateStatus(this.state.status);
+    }
+    onStatusChange = (e) => {
+        this.setState({
+            status: e.currentTarget.value
         })
     }
 
@@ -17,12 +30,13 @@ class ProfileStatus extends React.Component {
             <div>
                 {this.state.inEditMode ?
                     <div>
-                        <input onBlur={this.toggleEditMode.bind(this)} autoFocus={true}
-                               value={this.props.status}></input>
+                        <input onChange={this.onStatusChange}
+                               onBlur={this.deactivateEditMode} autoFocus={true}
+                               value={this.state.status}/>
                     </div>
                 :
                     <div>
-                        <span onDoubleClick={this.toggleEditMode.bind(this)}>{this.props.status}</span>
+                        <span onDoubleClick={this.activateEditMode}>{this.props.status || '----'}</span>
                     </div>
                 }
             </div>
